@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Wash and Dry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}" class="logo">🧺 Wash & Dry</a>
+        <div class="nav-links">
+            <a href="{{ url_for('about_us') }}">About Us</a>
+            <a href="{{ url_for('services') }}">Services & Details</a>
+            <a href="{{ url_for('inquire') }}">Inquire</a>
+            {% if logged_in %}
+                <a href="{{ url_for('delivery') }}">Track Delivery</a>
+                <a href="{{ url_for('logout') }}" class="auth-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth') }}" class="auth-btn">Sign In / Log In</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="services-main">
+        <header class="page-header">
+            <h2>Mga Serbisyo ug Presyo (Services and Prices)</h2>
+            <p>Pilia ang serbisyo nga bagay sa imong sanina. Ang presyo sa detergent apil na sa total. (Choose the service that suits your clothes. Detergent cost is included in the total.)</p>
+        </header>
+
+        <div class="service-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <span class="service-icon-large">{{ service.icon }}</span>
+                <h3>{{ service.name }}</h3>
+
+                <p class="description">{{ service.description }}</p>
+
+                <div class="price-box">
+                    <p><strong>Total Price:</strong> {{ service.price_per_unit }}</p>
+                    <p><strong>Detergent Cost:</strong> {{ service.detergent_cost }}</p>
+                </div>
+
+                <div class="details-box">
+                    <strong>Detalye:</strong> {{ service.details }}
+                </div>
+
+                <a href="{{ url_for('inquire') }}?service={{ service.name }}" class="book-now-button">Inquire Now</a>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Wash and Dry.</p>
+    </footer>
+</body>
+</html>

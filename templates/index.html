@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wash and Dry - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}" class="logo">🧺 Wash & Dry</a>
+        <div class="nav-links">
+            <a href="{{ url_for('about_us') }}">About Us</a> <a href="{{ url_for('services') }}">Services & Details</a>
+            <a href="{{ url_for('inquire') }}">Inquire</a>
+            {% if logged_in %}
+                <a href="{{ url_for('delivery') }}">Track Delivery</a>
+                <a href="{{ url_for('logout') }}" class="auth-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth') }}" class="auth-btn">Sign In / Log In</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flashes-container">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <header>
+        <h1>Your Laundry, Done Right.</h1>
+        <p>Hassle-free, on-demand washing and dry cleaning.</p>
+    </header>
+
+    <main>
+        <section class="service-intro">
+            <h2>Easy Laundry in 3 Steps</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <span class="icon">💻</span>
+                    <h3>Book Online</h3>
+                    <p>Choose your service and schedule a pickup time.</p>
+                </div>
+                <div class="step">
+                    <span class="icon">🧼</span>
+                    <h3>We Wash & Clean</h3>
+                    <p>Professional care, guaranteed clean, and perfectly folded.</p>
+                </div>
+                <div class="step">
+                    <span class="icon">🚚</span>
+                    <h3>We Deliver</h3>
+                    <p>Track your clean clothes right to your door.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="call-to-action">
+            <h2>Ready to Start?</h2>
+            <a href="{{ url_for('inquire') }}" class="app-button">Book Your First Order Now!</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Wash and Dry. | <a href="{{ url_for('services') }}">Services</a></p>
+    </footer>
+</body>
+</html>

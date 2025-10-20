@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Wash and Dry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}" class="logo">🧺 Wash & Dry</a>
+        <div class="nav-links">
+            <a href="{{ url_for('about_us') }}">About Us</a>
+            <a href="{{ url_for('services') }}">Services & Details</a>
+            <a href="{{ url_for('inquire') }}">Inquire</a>
+            {% if logged_in %}
+                <a href="{{ url_for('delivery') }}">Track Delivery</a>
+                <a href="{{ url_for('logout') }}" class="auth-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth') }}" class="auth-btn">Sign In / Log In</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="about-main">
+        <header class="page-header">
+            <h2>About Us:(How We Care for Your Clothes)</h2>
+            <p> (We truly strive to ensure everything is clean and intact.)</p>
+        </header>
+
+        <section class="about-section">
+            <h3>1. Pag-andam sa Sanina (Preparation of Clothes)</h3>
+            <p><strong>Pag-check:</strong> (We check every item for stains or things left in pockets. If there's an issue, we call you immediately.)</p>
+        </section>
+
+        <section class="about-section">
+            <h3>2.(Washing Process)</h3>
+            <div class="care-point">
+                <h4>detergent that we using:</h4>
+                <p>(We use high-quality detergent that won't harm skin or fabric. The detergent cost is included in the service!)</p>
+            </div>
+            <div class="care-point">
+                <h4>separating the cloaths:</h4>
+                <p>(White, black, and colored clothes are strictly separated so colors do not mix.)</p>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h3>3.(Drying and Folding)</h3>
+            <p>(Clothes are dried at the right temperature, depending on the fabric. After that, they are neatly folded, placed in plastic, and prepared for delivery.)</p>
+        </section>
+
+        <section class="call-to-action-small">
+            <p>(Are you confident in our service now?)</p>
+            <a href="{{ url_for('inquire') }}" class="inquire-link-bottom">Book Now!</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Wash and Dry.</p>
+    </footer>
+</body>
+</html>

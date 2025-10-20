@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquire | Wash and Dry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}" class="logo">🧺 Wash & Dry</a>
+        <div class="nav-links">
+            <a href="{{ url_for('services') }}">Services & Details</a>
+            <a href="{{ url_for('inquire') }}">Inquire</a>
+            {% if logged_in %}
+                <a href="{{ url_for('delivery') }}">Track Delivery</a>
+                <a href="{{ url_for('logout') }}" class="auth-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth') }}" class="auth-btn">Sign In / Log In</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="inquire-main">
+        <header class="page-header">
+            <h2>Have a Question or Special Request?</h2>
+            <p>Fill out the form below and we'll get back to you right away.</p>
+        </header>
+
+        <form method="POST" action="{{ url_for('inquire') }}" class="inquiry-form">
+
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="service">Regarding Service:</label>
+                <select id="service" name="service" required>
+                    <option value="" disabled selected>-- Choose a Topic --</option>
+                    {% for service in services %}
+                    <option value="{{ service.name }}"
+                            {% if request.args.get('service') == service.name %}selected{% endif %}>
+                        {{ service.name }}
+                    </option>
+                    {% endfor %}
+                    <option value="General Inquiry">General Inquiry</option>
+                    <option value="Delivery Question">Delivery Question</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Tell us about your question or project."></textarea>
+            </div>
+
+            <button type="submit" class="submit-button full-width">Send Inquiry</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Wash and Dry.</p>
+    </footer>
+</body>
+</html>

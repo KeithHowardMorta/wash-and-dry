@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery | Wash and Dry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}" class="logo">🧺 Wash & Dry</a>
+        <div class="nav-links">
+            <a href="{{ url_for('services') }}">Services & Details</a>
+            <a href="{{ url_for('inquire') }}">Inquire</a>
+            {% if logged_in %}
+                <a href="{{ url_for('delivery') }}">Track Delivery</a>
+                <a href="{{ url_for('logout') }}" class="auth-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth') }}" class="auth-btn">Sign In / Log In</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="delivery-main">
+        <header class="page-header">
+            <h2>Order & Delivery Status</h2>
+            <p>Logged in as: **{{ session.get('user', 'Guest') }}**</p>
+        </header>
+
+        <div class="status-card">
+            <h3>Current Order Status</h3>
+            <div class="status-indicator">
+                <span class="icon">📦</span>
+                <p class="status-message">{{ status }}</p>
+            </div>
+            <p class="tracking-note">Thank you for choosing Wash & Dry! We'll notify you when the driver is close.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Wash and Dry.</p>
+    </footer>
+</body>
+</html>
