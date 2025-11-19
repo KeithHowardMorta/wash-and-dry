@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth | Wash and Dry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* General styling adjustments for better layout and aesthetics */
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fc; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #4f46e5; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .nav-links a { margin-left: 1.5rem; color: #4b5563; text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: #4f46e5; }
+        .auth-main { padding: 2rem; text-align: center; }
+        .page-header h2 { font-size: 2rem; color: #1f2937; margin-bottom: 0.5rem; }
+        .page-header p { color: #6b7280; margin-bottom: 2rem; }
+        .auth-container { display: flex; justify-content: center; gap: 2rem; max-width: 900px; margin: 0 auto; }
+        .auth-card { background-color: #fff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); flex: 1; min-width: 300px; }
+        .icon-large { font-size: 3rem; margin-bottom: 1rem; }
+        .login-icon { color: #10b981; } /* Green for login */
+        .signup-icon { color: #f97316; } /* Orange for signup */
+        .auth-card h3 { font-size: 1.5rem; margin-bottom: 1.5rem; color: #1f2937; }
+        .form-group { text-align: left; margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 500; color: #374151; }
+        .form-group input { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; transition: border-color 0.2s; }
+        .form-group input:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+        .auth-button { width: 100%; padding: 0.75rem; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; transition: background-color 0.2s, transform 0.1s; margin-top: 1rem; }
+        .login-btn { background-color: #10b981; }
+        .login-btn:hover { background-color: #059669; transform: translateY(-1px); }
+        .signup-btn { background-color: #f97316; }
+        .signup-btn:hover { background-color: #ea580c; transform: translateY(-1px); }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .auth-container { flex-direction: column; }
+            nav { padding: 1rem; }
+            /* Ayaw na i-display ang nav links kay anaa ra man ka sa login page */
+            /* .nav-links { display: none; } */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('auth') }}" class="logo">🧺 Wash & Dry</a>
+        <div class="nav-links">
+            </div>
+    </nav>
+
+    <main class="auth-main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages-container mb-4 max-w-lg mx-auto">
+                {% for category, message in messages %}
+                    <div class="p-3 mb-2 rounded-lg text-sm {% if category == 'success' %}bg-green-100 text-green-800{% elif category == 'error' %}bg-red-100 text-red-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="page-header">
+            <h2>Welcome to Wash & Dry!</h2>
+            <p>Log in or create an account to use our services.</p>
+        </div>
+
+        <div class="auth-container">
+            <div class="auth-card login-card">
+                <i class="fas fa-sign-in-alt icon-large login-icon"></i>
+                <h3>Log In to Your Account</h3>
+
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div class="form-group">
+                        <label for="login-email">Email:</label>
+                        <input type="email" id="login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password:</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="auth-button login-btn">Log In</button>
+                </form>
+            </div>
+
+            <div class="auth-card signup-card">
+                <i class="fas fa-user-plus icon-large signup-icon"></i>
+                <h3>Create New Account</h3>
+
+                <form method="POST" action="{{ url_for('signup') }}">
+                    <div class="form-group">
+                        <label for="signup-email">Email:</label>
+                        <input type="email" id="signup-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password:</label>
+                        <input type="password" id="signup-password" name="password" required>
+                    </div>
+                    <button type="submit" class="auth-button signup-btn">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

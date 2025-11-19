@@ -4,7 +4,7 @@
 :root {
     --primary-blue: #007bff; /* Main Brand Color */
     --accent-green: #28a745; /* Action/Success Color */
-    --text-dark: #343a40;    /* Dark Text */
+    --text-dark: #343a40;    /* Dark Text (Black/Dark Gray) */
     --text-light: #6c757d;   /* Secondary Text */
     --bg-light: #f8f9fa;     /* Page Background */
     --bg-white: #ffffff;
@@ -32,25 +32,35 @@ main {
 
 h2 {
     color: var(--primary-blue);
-    font-size: 2em;
-    margin-bottom: 10px;
-    font-weight: 600;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    font-weight: 800; /* Extra-Bold */
 }
 
 h3 {
     color: var(--text-dark);
-    font-size: 1.4em;
-    margin-bottom: 8px;
+    font-size: 1.6em;
+    margin-bottom: 10px;
+    font-weight: 700; /* Bold */
 }
 
 /* --- Utility Classes --- */
 .page-header {
     text-align: center;
     padding: 20px 0 40px;
+    /* FIX: Gi-remove ang blue background para sa Services ug Inquire pages */
+    background: transparent;
+    box-shadow: none;
 }
 .page-header p {
-    color: var(--text-light);
+    color: var(--text-dark);
     font-size: 1.1em;
+}
+
+.icon-large {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    display: block;
 }
 
 
@@ -147,9 +157,17 @@ header h1 {
 }
 
 header p {
-    font-size: 1.2em;
-    opacity: 0.9;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--text-dark);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 20px auto 0;
+    opacity: 1;
+    max-width: 80%;
 }
+
 
 .steps-container {
     display: flex;
@@ -191,7 +209,6 @@ header p {
 }
 
 .app-button {
-    /* Style inherited from global nav styles, adjusted for size */
     padding: 15px 35px;
     font-size: 1.2em;
     border-radius: 50px;
@@ -229,11 +246,11 @@ header p {
 
 .price-box {
     background-color: #e6f0ff; /* Lightest blue for price */
-    padding: 15px;
+    padding: 18px;
     border-radius: 6px;
     margin: 20px 0;
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 1.3em;
+    font-weight: 900; /* Ultra Bold/Black */
     color: var(--primary-blue);
 }
 
@@ -269,34 +286,87 @@ header p {
 }
 
 /* ===================================
-   5. AUTH & INQUIRE FORMS
+   5. AUTH & INQUIRE FORMS (UPDATED)
 =================================== */
-.auth-main, .inquire-main {
-    max-width: 600px;
+/* Increased max width for the two-column layout */
+.auth-main {
+    max-width: 1000px;
     margin: 40px auto;
 }
 
-.auth-box {
+/* Container to hold the two separate cards side-by-side */
+.auth-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.auth-card {
     background: var(--bg-white);
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Nicer shadow */
     text-align: center;
+    transition: transform 0.3s;
 }
 
-.auth-box h3 {
-    margin-top: 20px;
-    color: var(--text-dark);
-    font-size: 1.3em;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
+.auth-card:hover {
+    transform: translateY(-5px);
 }
+
+.login-card {
+    border-top: 8px solid var(--primary-blue);
+}
+
+.signup-card {
+    border-top: 8px solid var(--accent-green);
+}
+
+.login-icon {
+    color: var(--primary-blue);
+}
+
+.signup-icon {
+    color: var(--accent-green);
+}
+
+.auth-card h3 {
+    margin-bottom: 25px;
+    color: var(--text-dark);
+    font-size: 1.5em;
+    font-weight: 700;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
 
 .divider {
     margin: 30px 0;
     color: var(--text-light);
     font-weight: bold;
 }
+
+/* FIX: Inquire Page Header Styling for transparent background */
+.inquire-main .page-header {
+    background: transparent;
+    color: var(--text-dark);
+    padding: 20px 20px 40px;
+    margin-bottom: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.inquire-main .page-header p {
+    font-size: 1.1em;
+    font-weight: 400;
+    color: var(--text-dark);
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    margin: 0;
+}
+
 
 .inquiry-form {
     background: var(--bg-white);
@@ -310,6 +380,7 @@ header p {
 
 .form-group {
     text-align: left;
+    margin-bottom: 20px; /* Added spacing */
 }
 
 .full-width {
@@ -318,9 +389,9 @@ header p {
 
 .form-group label {
     display: block;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 5px;
-    color: var(--primary-blue);
+    color: var(--text-dark);
 }
 
 .form-group input, .form-group select, .form-group textarea {
@@ -330,7 +401,13 @@ header p {
     border-radius: 5px;
     font-size: 1em;
     transition: border-color 0.3s;
+    color: var(--text-dark);
 }
+
+.form-group select option {
+    color: var(--text-dark);
+}
+
 
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
     border-color: var(--primary-blue);
@@ -350,14 +427,20 @@ header p {
     transition: background-color 0.3s;
 }
 
-.login-btn, .submit-button {
+.login-btn {
     background-color: var(--primary-blue);
     color: white;
 }
+.login-btn:hover {
+    background-color: #0056b3;
+}
 
-.signup-btn {
+.signup-btn, .submit-button {
     background-color: var(--accent-green);
     color: white;
+}
+.signup-btn:hover, .submit-button:hover {
+    background-color: #1e7e34;
 }
 
 /* ===================================
@@ -377,10 +460,11 @@ header p {
 
 .about-section h3 {
     color: var(--primary-blue);
+    font-size: 1.8em;
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 10px;
     margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 800; /* Extra Bold */
 }
 
 .care-point {
